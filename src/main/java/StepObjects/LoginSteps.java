@@ -2,6 +2,7 @@ package StepObjects;
 
 import PageObjects.LoginPage;
 import Utils.Constants;
+import io.qameta.allure.Step;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,6 +22,7 @@ public class LoginSteps extends CommonStepObjects {
     }
 
     @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
+    @Step("Close any notification if it's opened")
     public LoginSteps closeAnyNotificationIfItsOpened() {
         try {
             WebElement notificationXButton = webDriver.findElement(loginPage.notificationXButton);
@@ -34,6 +36,7 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @Step("Fill username field with: {userName}")
     public LoginSteps fillUsernameField(String userName) {
         WebElement userNameField = waitForVisible(loginPage.userNameField);
         userNameField.sendKeys(userName);
@@ -42,6 +45,7 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @Step("Fill password field with: {password}")
     public LoginSteps fillPasswordField(String password) {
         WebElement passwordField = waitForVisible(loginPage.passwordField);
         passwordField.sendKeys(password);
@@ -50,6 +54,7 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @Step("Click on login button")
     public LoginSteps clickLoginButton() {
         WebElement loginButton = waitForVisible(loginPage.loginButton);
         loginButton.click();
@@ -57,6 +62,7 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @Step("Click on language switcher button")
     @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
     public LoginSteps clickLanguageSwitcherButton() {
         WebElement languageSwitcherButton = waitForVisible(loginPage.languageSwitcherButton);
@@ -65,6 +71,15 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @Step("Click on remember me checkbox")
+    public LoginSteps clickRememberMeCheckbox() {
+        WebElement rememberMeCheckbox = waitForVisible(loginPage.rememberMeCheckbox);
+        rememberMeCheckbox.click();
+
+        return this;
+    }
+
+    @Step("Assert that login button is disabled")
     @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
     public LoginSteps assertLoginButtonIsDisabled() {
         WebElement loginButton = waitForVisible(loginPage.loginButton);
@@ -73,6 +88,7 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @Step("Assert that credentials are wrong for language: {language}")
     @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
     public LoginSteps assertCredentialsAreWrong(String language) {
         WebElement wrongCredentialsNotification = waitForVisible(loginPage.wrongCredentialsNotification);

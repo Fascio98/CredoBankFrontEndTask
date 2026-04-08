@@ -11,6 +11,7 @@ public class LoginPage {
     public final By languageSwitcherButton = By.id("languageSwitcherBtn");
     public final By wrongCredentialsNotification = By.xpath("//p[@id='growlText']");
     public final By notificationXButton = By.xpath("//div[contains(@class, 'icon white-010 close pointer')]");
+    public final By rememberMeCheckbox = By.xpath("//div[@class='custom-checkbox']");
 
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;

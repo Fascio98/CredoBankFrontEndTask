@@ -3,7 +3,8 @@ package Configurations;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
 
@@ -13,7 +14,13 @@ public class BrowserConfigurations {
     public static long timeout = 20; // in seconds
 
     public BrowserConfigurations() {
-        // Setup ChromeOptions
+        initializeBrowser();
+    }
+
+    /**
+     * Initialize or reinitialize the browser
+     */
+    private static void initializeBrowser() {
         if (driver == null) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("start-maximized");
@@ -32,11 +39,30 @@ public class BrowserConfigurations {
         }
     }
 
+    /**
+     * Recreate browser before each test method
+     */
+    @BeforeMethod
+    public void setUpBeforeMethod() {
+        closeBrowser();
+        initializeBrowser();
+    }
+
+    /**
+     * Close browser after each test method
+     */
+    @AfterMethod
+    public void tearDownAfterMethod() {
+        closeBrowser();
+    }
+
     public static WebDriver getWebDriver() {
         return driver;
     }
 
-    @AfterTest
+    /**
+     * Close and cleanup the browser
+     */
     public static void closeBrowser() {
         if (driver != null) {
             driver.quit();

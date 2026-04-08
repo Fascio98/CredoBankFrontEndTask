@@ -2,6 +2,7 @@ package StepObjects;
 
 import PageObjects.LanguagePage;
 import Utils.Constants;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +19,7 @@ public class LanguageSteps extends CommonStepObjects {
     }
 
     @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
+    @Step("Click on custom language: {language}")
     public LanguageSteps clickCustomLanguage(String language) {
         if (language.equals(Constants.Language.GEORGIAN.getLanguage())) {
             WebElement georgianLanguage = waitForVisible(languagePage.georgianLanguage);
