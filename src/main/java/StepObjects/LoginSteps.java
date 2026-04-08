@@ -1,78 +1,90 @@
 package StepObjects;
 
 import PageObjects.LoginPage;
+import Utils.Constants;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
-public class LoginSteps {
-    WebDriver webDriver;
+public class LoginSteps extends CommonStepObjects {
     LoginPage loginPage;
-    WebDriverWait wait;
     public LoginSteps(WebDriver webDriver) {
         this.webDriver = webDriver;
         loginPage = new LoginPage(webDriver);
         wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
     }
-    SoftAssert softAssert = new SoftAssert();
+
+    public LoginSteps closeAnyNotificationIfItsOpened() {
+        try {
+            WebElement notificationXButton = webDriver.findElement(loginPage.notificationXButton);
+            if (notificationXButton.isDisplayed()) {
+                notificationXButton.click();
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Notification X button not present.");
+        }
+
+        return this;
+    }
+
+    public LoginSteps clearUsernameField() {
+        WebElement userNameField = waitForVisible(loginPage.userNameField);
+        userNameField.clear();
+
+        return this;
+    }
 
     public LoginSteps fillUsernameField(String userName) {
-        WebElement userNameField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(loginPage.userNameField)
-        );
+        WebElement userNameField = waitForVisible(loginPage.userNameField);
         userNameField.sendKeys(userName);
+        softAssert.assertEquals(userNameField.getAttribute("value"), userName);
+
+        return this;
+    }
+
+    public LoginSteps clearPasswordField() {
+        WebElement passwordField = waitForVisible(loginPage.passwordField);
+        passwordField.clear();
 
         return this;
     }
 
     public LoginSteps fillPasswordField(String password) {
-        WebElement passwordField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(loginPage.passwordField)
-        );
+        WebElement passwordField = waitForVisible(loginPage.passwordField);
         passwordField.sendKeys(password);
+        softAssert.assertEquals(passwordField.getAttribute("value"), password);
 
         return this;
     }
 
     public LoginSteps clickLoginButton() {
-        WebElement loginButton = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(loginPage.loginButton)
-        );
+        WebElement loginButton = waitForVisible(loginPage.loginButton);
         loginButton.click();
 
         return this;
     }
 
     public LoginSteps clickLanguageSwitcherButton() {
-        WebElement languageSwitcherButton = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(loginPage.languageSwitcherButton)
-        );
+        WebElement languageSwitcherButton = waitForVisible(loginPage.languageSwitcherButton);
         languageSwitcherButton.click();
 
         return this;
     }
 
     public LoginSteps assertLoginButtonIsDisabled() {
-        WebElement loginButton = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(loginPage.loginButton)
-        );
+        WebElement loginButton = waitForVisible(loginPage.loginButton);
         softAssert.assertTrue(!loginButton.isEnabled());
 
         return this;
     }
 
     public LoginSteps assertCredentialsAreWrong(String language) {
-        WebElement wrongCredentialsNotification = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(loginPage.wrongCredentialsNotification)
-        );
-        if (language == "Georgian") {
+        WebElement wrongCredentialsNotification = waitForVisible(loginPage.wrongCredentialsNotification);
+        if (language.equals(Constants.GEORGIAN.getLanguage())) {
             softAssert.assertEquals(wrongCredentialsNotification.getText(), "მონაცემები არასწორია");
-        } else if (language == "Megrelian") {
-            softAssert.assertEquals(wrongCredentialsNotification.getText(), "");
         } else {
             softAssert.assertEquals(wrongCredentialsNotification.getText(), "მონაცემოლ სწორ დემეგ ლი");
         }

@@ -10,6 +10,7 @@ public class LoginPage {
     public By loginButton = By.id("submitAuth");
     public By languageSwitcherButton = By.id("languageSwitcherBtn");
     public By wrongCredentialsNotification = By.xpath("//p[@id='growlText']");
+    public By notificationXButton = By.xpath("//div[contains(@class, 'icon white-010 close pointer')]");
 
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;

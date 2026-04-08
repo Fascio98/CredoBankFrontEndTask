@@ -1,6 +1,7 @@
 package StepObjects;
 
 import PageObjects.LanguagePage;
+import Utils.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,37 +9,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LanguageSteps {
-    WebDriver webDriver;
+public class LanguageSteps extends CommonStepObjects {
+    LanguagePage languagePage;
     public LanguageSteps(WebDriver webDriver) {
         this.webDriver = webDriver;
+        this.languagePage = new LanguagePage(webDriver);
+        this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
     }
-    LanguagePage languagePage = new LanguagePage(webDriver);
-    WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
 
-    public LanguageSteps clickGeorgianLanguage() {
+    public LanguageSteps clickCustomLanguage(String language) {
         WebElement georgianLanguage = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(languagePage.georgianLanguage)
         );
-        georgianLanguage.click();
-
-        return this;
-    }
-
-    public LanguageSteps clickMegrelianLanguage() {
-        WebElement megrelianLanguage = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(languagePage.megrelianLanguage)
-        );
-        megrelianLanguage.click();
-
-        return this;
-    }
-
-    public LanguageSteps clickSvanLanguage() {
-        WebElement svanLanguage = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(languagePage.svanLanguage)
-        );
-        svanLanguage.click();
+        WebElement svanLanguage = webDriver.findElement(languagePage.svanLanguage);
+        if (language == Constants.GEORGIAN.getLanguage()) {
+            georgianLanguage.click();
+        } else {
+            svanLanguage.click();
+        }
 
         return this;
     }
