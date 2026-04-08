@@ -38,7 +38,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user forgets to write credentials")
-    @Description("Negative scenario")
+    @Description("Negative scenario without credentials")
     @Test(dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     @SuppressWarnings("unused") // language parameter is used by @BeforeMethod
     public void tryToLoginWithoutCredentials(String language) {
@@ -47,7 +47,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user forgets to write credentials with remember me checkbox")
-    @Description("Negative scenario")
+    @Description("Negative scenario without credentials with remember me checkbox")
     @Test(priority = 1, dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     @SuppressWarnings("unused") // language parameter is used by @BeforeMethod
     public void tryToLoginWithoutCredentialsWithRememberMe(String language) {
@@ -58,7 +58,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user writes username but forgets password")
-    @Description("Negative scenario")
+    @Description("Negative scenario with only username")
     @Test(priority = 2, dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     @SuppressWarnings("unused") // language parameter is used by @BeforeMethod
     public void tryToLoginWithOnlyUsername(String language) {
@@ -70,7 +70,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user writes username but forgets password with remember me checkbox")
-    @Description("Negative scenario")
+    @Description("Negative scenario with only username and remember me checkbox")
     @Test(priority = 3, dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     @SuppressWarnings("unused") // language parameter is used by @BeforeMethod
     public void tryToLoginWithOnlyUsernameWithRememberMe(String language) {
@@ -83,7 +83,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user writes password but forgets username")
-    @Description("Negative scenario")
+    @Description("Negative scenario with only password")
     @Test(priority = 4, dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     @SuppressWarnings("unused") // language parameter is used by @BeforeMethod
     public void tryToLoginWithOnlyPassword(String language) {
@@ -95,7 +95,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user writes password but forgets username with remember me checkbox")
-    @Description("Negative scenario")
+    @Description("Negative scenario with only password and remember me checkbox")
     @Test(priority = 5, dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     @SuppressWarnings("unused") // language parameter is used by @BeforeMethod
     public void tryToLoginWithOnlyPasswordWithRememberMe(String language) {
@@ -108,7 +108,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user writes incorrect credentials")
-    @Description("Negative scenario")
+    @Description("Negative scenario with incorrect username and password")
     @Test(priority = 6, dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     public void tryToLoginWithIncorrectCredentials(String language) {
         String username = randomStringGenerator.generateUsername();
@@ -125,7 +125,7 @@ public class CredoBankLoginNegativeUITests extends BrowserConfigurations {
     }
 
     @Story("Try to login when user writes incorrect credentials with remember me checkbox")
-    @Description("Negative scenario")
+    @Description("Negative scenario with incorrect username and password with remember me checkbox")
     @Test(priority = 7, dataProvider = "languages", dataProviderClass = DataProviderImplementation.class)
     public void tryToLoginWithIncorrectCredentialsWithRememberMe(String language) {
         String username = randomStringGenerator.generateUsername();
