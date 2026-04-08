@@ -83,7 +83,7 @@ public class LoginSteps extends CommonStepObjects {
 
     public LoginSteps assertCredentialsAreWrong(String language) {
         WebElement wrongCredentialsNotification = waitForVisible(loginPage.wrongCredentialsNotification);
-        if (language.equals(Constants.GEORGIAN.getLanguage())) {
+        if (language.equals(Constants.Language.GEORGIAN.getLanguage())) {
             softAssert.assertEquals(wrongCredentialsNotification.getText(), "მონაცემები არასწორია");
         } else {
             softAssert.assertEquals(wrongCredentialsNotification.getText(), "მონაცემოლ სწორ დემეგ ლი");

@@ -22,7 +22,7 @@ public class LanguageSteps extends CommonStepObjects {
                 ExpectedConditions.visibilityOfElementLocated(languagePage.georgianLanguage)
         );
         WebElement svanLanguage = webDriver.findElement(languagePage.svanLanguage);
-        if (language == Constants.GEORGIAN.getLanguage()) {
+        if (language.equals(Constants.Language.GEORGIAN.getLanguage())) {
             georgianLanguage.click();
         } else {
             svanLanguage.click();
