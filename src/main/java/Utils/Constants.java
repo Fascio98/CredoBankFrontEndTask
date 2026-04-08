@@ -3,7 +3,7 @@ package Utils;
 public class Constants {
     public enum Language {
         GEORGIAN("ქართული"),
-        SVAN("მეგრული");
+        SVAN("სვანური");
 
         private final String language;
 

@@ -9,10 +9,14 @@ import org.testng.asserts.SoftAssert;
 
 public class CommonStepObjects {
     WebDriver webDriver;
-    SoftAssert softAssert;
+    SoftAssert softAssert = new SoftAssert();
     WebDriverWait wait;
 
     WebElement waitForVisible(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+    
+    public void assertAll() {
+        softAssert.assertAll();
     }
 }

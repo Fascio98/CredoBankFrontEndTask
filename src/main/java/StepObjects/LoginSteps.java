@@ -8,15 +8,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.logging.Logger;
 
 public class LoginSteps extends CommonStepObjects {
+    private static final Logger logger = Logger.getLogger(LoginSteps.class.getName());
     LoginPage loginPage;
+    
     public LoginSteps(WebDriver webDriver) {
         this.webDriver = webDriver;
-        loginPage = new LoginPage(webDriver);
-        wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        this.loginPage = new LoginPage(webDriver);
+        this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
     }
 
+    @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
     public LoginSteps closeAnyNotificationIfItsOpened() {
         try {
             WebElement notificationXButton = webDriver.findElement(loginPage.notificationXButton);
@@ -24,15 +28,8 @@ public class LoginSteps extends CommonStepObjects {
                 notificationXButton.click();
             }
         } catch (NoSuchElementException e) {
-            System.out.println("Notification X button not present.");
+            logger.info("Notification X button not present.");
         }
-
-        return this;
-    }
-
-    public LoginSteps clearUsernameField() {
-        WebElement userNameField = waitForVisible(loginPage.userNameField);
-        userNameField.clear();
 
         return this;
     }
@@ -41,13 +38,6 @@ public class LoginSteps extends CommonStepObjects {
         WebElement userNameField = waitForVisible(loginPage.userNameField);
         userNameField.sendKeys(userName);
         softAssert.assertEquals(userNameField.getAttribute("value"), userName);
-
-        return this;
-    }
-
-    public LoginSteps clearPasswordField() {
-        WebElement passwordField = waitForVisible(loginPage.passwordField);
-        passwordField.clear();
 
         return this;
     }
@@ -67,6 +57,7 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
     public LoginSteps clickLanguageSwitcherButton() {
         WebElement languageSwitcherButton = waitForVisible(loginPage.languageSwitcherButton);
         languageSwitcherButton.click();
@@ -74,20 +65,26 @@ public class LoginSteps extends CommonStepObjects {
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
     public LoginSteps assertLoginButtonIsDisabled() {
         WebElement loginButton = waitForVisible(loginPage.loginButton);
-        softAssert.assertTrue(!loginButton.isEnabled());
+        softAssert.assertFalse(loginButton.isEnabled(), "Login button should be disabled");
 
         return this;
     }
 
+    @SuppressWarnings("UnusedReturnValue") // Method chaining pattern used in step objects
     public LoginSteps assertCredentialsAreWrong(String language) {
         WebElement wrongCredentialsNotification = waitForVisible(loginPage.wrongCredentialsNotification);
+        
         if (language.equals(Constants.Language.GEORGIAN.getLanguage())) {
             softAssert.assertEquals(wrongCredentialsNotification.getText(), "მონაცემები არასწორია");
-        } else {
+        } else if (language.equals(Constants.Language.SVAN.getLanguage())) {
             softAssert.assertEquals(wrongCredentialsNotification.getText(), "მონაცემოლ სწორ დემეგ ლი");
+        } else {
+            throw new IllegalArgumentException("Unsupported language: " + language);
         }
+        
         return this;
     }
 }

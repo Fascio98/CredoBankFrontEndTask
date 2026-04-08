@@ -5,27 +5,31 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.security.SecureRandom;
 
 public class RandomStringGenerator {
-    SecureRandom secureRandom = new SecureRandom();
+    private static final int USERNAME_LENGTH = 12;
+    private static final int PASSWORD_LENGTH = 8;
+    
+    private final SecureRandom secureRandom = new SecureRandom();
+    
     public String generateUsername() {
         return RandomStringUtils.random(
-                12,        // length
-                0,         // start unicode (ignored if chars != null or letters/numbers true)
-                0,         // end unicode
+                USERNAME_LENGTH,
+                0,
+                0,
                 true,      // letters
                 true,      // numbers
-                null,      // optional char array
+                null,
                 secureRandom
         );
     }
 
     public String generatePassword() {
         return RandomStringUtils.random(
-                8,        // length
-                0,         // start unicode (ignored if chars != null or letters/numbers true)
-                0,         // end unicode
+                PASSWORD_LENGTH,
+                0,
+                0,
                 true,      // letters
                 true,      // numbers
-                null,      // optional char array
+                null,
                 secureRandom
         );
     }

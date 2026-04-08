@@ -1,23 +1,15 @@
 package Configurations;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 
 public class BrowserConfigurations {
     public static WebDriver driver;
     public static String baseUrl = "https://mycredo.ge/landing/main/auth";
-    public static String reportsFolder = "src/main/resources/FailedTests";
     public static long timeout = 20; // in seconds
 
     public BrowserConfigurations() {
@@ -40,19 +32,7 @@ public class BrowserConfigurations {
         }
     }
 
-    // Method to take screenshot on failure (similar to AllureSelenide listener)
-    public static void takeScreenshot(String testName) {
-        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            File destFile = new File(reportsFolder + "/" + testName + ".png");
-            FileUtils.copyFile(srcFile, destFile);
-            System.out.println("Screenshot saved: " + destFile.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static WebDriver GetWebDriver() {
+    public static WebDriver getWebDriver() {
         return driver;
     }
 
@@ -60,6 +40,7 @@ public class BrowserConfigurations {
     public static void closeBrowser() {
         if (driver != null) {
             driver.quit();
+            driver = null; // Reset driver to null after quitting
         }
     }
 }
