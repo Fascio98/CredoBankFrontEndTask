@@ -102,7 +102,7 @@
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.25.1/aspectjweaver-1.9.25.1.jar"
                     </argLine>
                     <systemPropertyVariables>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <allure.results.directory>allure-results</allure.results.directory>
                         <allure.link.issue.pattern>https://example.org/browse/{}</allure.link.issue.pattern>
                         <allure.link.tms.pattern>https://example.org/browse/{}</allure.link.tms.pattern>
                     </systemPropertyVariables>
