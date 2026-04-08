@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="TestSuite" >
+<suite name="Credo Bank Test Automation Suite" verbose="2">
 
-    <test name="CredoBankLoginNegativeUITests">
+    <!-- Listeners for Allure reporting -->
+    <listeners>
+        <listener class-name="Configurations.AllureConfig"/>
+    </listeners>
+
+    <!-- Login Negative Test Cases -->
+    <test name="Login Negative Test Cases" preserve-order="true">
         <classes>
-            <class name="CredoBankLoginNegativeUITests" />
+            <class name="CredoBankLoginNegativeUITests"/>
         </classes>
     </test>
 
